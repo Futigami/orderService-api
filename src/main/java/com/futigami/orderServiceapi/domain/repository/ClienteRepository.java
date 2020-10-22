@@ -10,7 +10,9 @@ import com.futigami.orderServiceapi.domain.model.Cliente;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 	
-	
 	List<Cliente> findByNome(String nome);
+	
+	Cliente findByEmail(String email);
+	
 	
 }
