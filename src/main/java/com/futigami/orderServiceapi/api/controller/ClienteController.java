@@ -2,6 +2,7 @@ package com.futigami.orderServiceapi.api.controller;
 
 import com.futigami.orderServiceapi.domain.model.Cliente;
 import com.futigami.orderServiceapi.domain.repository.ClienteRepository;
+import com.futigami.orderServiceapi.domain.service.CadastroClienteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,9 @@ public class ClienteController {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
+	@Autowired
+	private CadastroClienteService cadastroCliente;
+	
     @GetMapping
     public List<Cliente> listar(){
         return clienteRepository.findAll();
@@ -47,7 +51,7 @@ public class ClienteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
-    	return clienteRepository.save(cliente);
+    	return cadastroCliente.salvar(cliente);
     }
     
     @PutMapping("/{clienteId}")
@@ -57,7 +61,7 @@ public class ClienteController {
     	}
     	
     	cliente.setId(clienteId);
-    	cliente = clienteRepository.save(cliente);
+    	cliente = cadastroCliente.salvar(cliente);
     	
     	return ResponseEntity.ok(cliente);
     }
@@ -68,7 +72,7 @@ public class ClienteController {
     		return ResponseEntity.notFound().build();
     	}
     	
-    	clienteRepository.deleteById(clienteId);
+    	cadastroCliente.excluir(clienteId);
     	
     	return ResponseEntity.noContent().build();
     }
