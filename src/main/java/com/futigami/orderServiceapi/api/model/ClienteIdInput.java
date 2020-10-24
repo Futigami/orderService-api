@@ -1,9 +1,13 @@
 package com.futigami.orderServiceapi.api.model;
 
+import javax.validation.constraints.NotNull;
+
 public class ClienteIdInput {
 	
+	@NotNull
 	private Long id;
 
+	
 	public Long getId() {
 		return id;
 	}
